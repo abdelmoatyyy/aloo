@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Get Our App</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root { font-family: system-ui, sans-serif; }
+    body { margin: 2rem; line-height: 1.45; }
+    .buttons { display:flex; gap:.75rem; flex-wrap:wrap; margin-top:.5rem }
+    a { padding:.75rem 1rem; border:1px solid #ccc; border-radius:.6rem; text-decoration:none }
+  </style>
+</head>
+<body>
+  <h1>Get Our App</h1>
+  <p>If your device wasn’t detected, pick your store:</p>
+  <div class="buttons">
+    <a id="iosLink" target="_blank" rel="noopener">App Store (iOS)</a>
+    <a id="androidLink" target="_blank" rel="noopener">Google Play (Android)</a>
+  </div>
+
+  <script>
+    // TODO: replace with your real URLs
+    const IOS_URL = "https://apps.apple.com/kw/app/%D9%85%D9%86%D8%B5%D8%A9-%D8%A3%D9%85%D8%A7%D9%86-amaan/id6738761929";
+    const ANDROID_URL = "https://play.google.com/store/apps/details?id=com.athar.amaan";
+
+    const preserveParams = (url) => {
+      if (!location.search) return url;
+      const hasQuery = url.includes("?");
+      return url + (hasQuery ? "&" : "?") + location.search.slice(1);
+    };
+
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isAndroid = /Android/i.test(ua);
+    const isIOS = /(iPhone|iPad|iPod)/i.test(ua);
+
+    const iosLink = document.getElementById("iosLink");
+    const androidLink = document.getElementById("androidLink");
+    iosLink.href = IOS_URL;
+    androidLink.href = ANDROID_URL;
+
+    // Auto-redirect only when we’re sure
+    if (isIOS && IOS_URL) {
+      location.replace(preserveParams(IOS_URL));
+    } else if (isAndroid && ANDROID_URL) {
+      location.replace(preserveParams(ANDROID_URL));
+    }
+    // Else: do nothing, let the user click a button.
+  </script>
+</body>
+</html>
